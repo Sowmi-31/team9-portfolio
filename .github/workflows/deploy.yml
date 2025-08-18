@@ -1,0 +1,33 @@
+name: Deploy Portfolio Website
+
+# Trigger this workflow on push to main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout repository
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    # Step 2: Setup Node.js (optional for static HTML)
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Step 3: Build site (not needed for pure HTML/CSS/JS)
+    - name: Build site
+      run: echo "Static HTML site - no build needed"
+
+    # Step 4: Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v6
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./  # root folder containing index.html
